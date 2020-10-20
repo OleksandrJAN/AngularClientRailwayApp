@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="start center">
+<div fxLayout="column" fxLayoutAlign="start stretch" fxFlexOffset="12.5" fxFlex="75">
     <app-route-finder [stations]="stations" (routeParametersSelected)="getRouteSearchParameters($event)"></app-route-finder>
     <app-routes-list [routes]="routes"></app-routes-list>
 </div>
