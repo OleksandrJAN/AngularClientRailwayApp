@@ -1,29 +1,33 @@
-<mat-card>
-    <mat-card-header fxLayout="column" fxLayoutAlign="center">Angular 8 JWT Login Example</mat-card-header>
+<div fxLayoutAlign="center center">
+    <mat-card fxLayout="column" fxLayoutAlign="space-around center">
+        <mat-card-header fxLayout="column" fxLayoutAlign="center center">
+            Angular 8 JWT Login Example
+        </mat-card-header>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <mat-card-content fxLayout="column" fxLayoutAlign="space-around center">
-            <mat-form-field appearance="standard">
-                <mat-label>Username</mat-label>
-                <input matInput type="text" formControlName="username">
-                <mat-error *ngIf="hasError('username', 'required')">Username is required</mat-error>
-            </mat-form-field>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <mat-card-content fxLayout="column" fxLayoutAlign="start stretch">
+                <mat-form-field appearance="standard">
+                    <mat-label>Username</mat-label>
+                    <input matInput type="text" formControlName="username">
+                    <mat-error *ngIf="hasError('username', 'required')">Username is required</mat-error>
+                </mat-form-field>
 
-            <mat-form-field appearance="standard">
-                <mat-label>Password</mat-label>
-                <input matInput type="password" formControlName="password">
-                <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
-            </mat-form-field>
+                <mat-form-field appearance="standard">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" formControlName="password">
+                    <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
+                </mat-form-field>
 
-            <div *ngIf="error">
-                {{error}}
-            </div>
-        </mat-card-content>
+                <div *ngIf="error">
+                    {{error}}
+                </div>
+            </mat-card-content>
 
-        <mat-card-actions fxLayout="row" fxLayoutAlign="space-around center">
-            <button mat-button [disabled]="loading || loginForm.invalid">Login</button>
-            <a mat-button routerLink="/registration">Registration</a>
-        </mat-card-actions>
-    </form>
+            <mat-card-actions fxLayout="row" fxLayoutAlign="space-around center">
+                <button mat-button [disabled]="loading || loginForm.invalid">Login</button>
+                <a mat-button routerLink="/registration">Registration</a>
+            </mat-card-actions>
+        </form>
 
-</mat-card>
+    </mat-card>
+</div>
