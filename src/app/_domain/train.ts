@@ -1,4 +1,7 @@
 export class Train {
     id: number;
-    number: string
+    number: string;
+    trainType: string;
+    electronicRegistration: boolean;
+    firmTrain: boolean;
 }
