@@ -12,6 +12,8 @@ export class RoutesListComponent implements OnInit {
 
   _routes: Route[];
 
+  displayedColumns: string[] = ['train', 'departure', 'arrival', 'duration'];
+
   @Input() set routes(routes: Route[]) {
     this._routes = routes;
   }
@@ -20,5 +22,20 @@ export class RoutesListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void { }
+
+
+  durationToString(travelTime: number): string {
+    let minutes = travelTime % 60;
+    let hours = (travelTime - minutes) / 60;
+    return hours + ' ч ' + minutes + ' мин';
+  }
+
+  timeToString(time: number): string {
+    let minutes = time % 60;
+    let hours = (time - minutes) / 60;
+    return (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+  }
+
+
 
 }
