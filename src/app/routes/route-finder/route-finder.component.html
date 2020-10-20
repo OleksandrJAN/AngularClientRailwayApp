@@ -1,0 +1,27 @@
+<mat-card>
+    <mat-card-content fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="30px">
+        <mat-form-field appearance="standart">
+            <mat-label>Откуда</mat-label>
+            <mat-select [(ngModel)]="departureStation">
+                <mat-option *ngFor="let station of stations" [value]="station">
+                    {{station.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button mat-icon-button aria-label="Reverse station icon button" (click)="onReverse()">
+            <mat-icon>sync_alt</mat-icon>
+        </button>
+
+        <mat-form-field appearance="standart">
+            <mat-label>Куда</mat-label>
+            <mat-select [(ngModel)]="arrivalStation">
+                <mat-option *ngFor="let station of stations" [value]="station">
+                    {{station.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button mat-button [disabled]="!departureStation || !arrivalStation" (click)="onFind()">Найти</button>
+    </mat-card-content>
+</mat-card>
