@@ -1,4 +1,4 @@
-import { Station, Train } from '.';
+import { Schedule, Station, Train } from '.';
 
 export class Route {
     id: number;
@@ -10,4 +10,9 @@ export class Route {
     departureTime: number;
     arrivalTime: number;
     travelTime: number;
+}
+
+export class RouteSchedule {
+    train: Train;
+    stationsSchedule: { station: Station, schedule: Schedule }[];
 }
