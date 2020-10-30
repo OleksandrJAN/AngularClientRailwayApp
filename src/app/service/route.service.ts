@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Route, RouteSearchParameters, Station } from '../_domain';
+import { Route, RouteSchedule, RouteSearchParameters } from '../_domain';
 
 
 @Injectable({ providedIn: 'root' })
@@ -12,7 +12,7 @@ export class RouteService {
 
   constructor(private http: HttpClient) { }
 
-  
+
   public findRoutes(routeParameters: RouteSearchParameters): Observable<Route[]> {
     const params = new HttpParams()
       .set('from', String(routeParameters.departureStation.id))
@@ -21,12 +21,8 @@ export class RouteService {
     return this.http.get<Route[]>(this.routeUrl, { params });
   }
 
-  public findAll(): Observable<Route[]> {
-    return this.http.get<Route[]>(this.routeUrl);
-  }
-
-  public findOne(id: number): Observable<Route> {
-    return this.http.get<Route>(this.routeUrl + '/' + id);
+  public findRoute(id: number): Observable<RouteSchedule> {
+    return this.http.get<RouteSchedule>(this.routeUrl + '/' + id);
   }
 
 }
