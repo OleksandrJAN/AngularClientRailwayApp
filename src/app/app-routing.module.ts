@@ -3,15 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from './auth';
 import { LoginComponent } from './login';
-import { RoutePageComponent } from './routes';
+import { RoutePageComponent, RouteScheduleComponent } from './routes';
 
 
 const routes: Routes = [
   { path: '', component: RoutePageComponent, canActivate: [AuthGuard] },
   { path: 'routes', component: RoutePageComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
-  // { path: 'routes/:id', component: FilmPageComponent }
+  { path: 'routes/:id', component: RouteScheduleComponent, canActivate: [AuthGuard] },
 
+  { path: 'login', component: LoginComponent },
+  
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

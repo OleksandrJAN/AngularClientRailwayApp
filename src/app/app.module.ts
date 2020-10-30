@@ -13,7 +13,7 @@ import { ErrorInterceptor, JwtInterceptor } from './auth';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login';
-import { RoutesListComponent, RouteFinderComponent, RoutePageComponent } from './routes';
+import { RoutesListComponent, RouteFinderComponent, RoutePageComponent, RouteScheduleComponent } from './routes';
 
 
 @NgModule({
@@ -22,7 +22,8 @@ import { RoutesListComponent, RouteFinderComponent, RoutePageComponent } from '.
     LoginComponent,
     RoutesListComponent,
     RouteFinderComponent,
-    RoutePageComponent
+    RoutePageComponent,
+    RouteScheduleComponent
   ],
   imports: [
     BrowserModule,
