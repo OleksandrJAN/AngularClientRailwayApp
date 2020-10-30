@@ -4,9 +4,12 @@
     <ng-container matColumnDef="train">
         <th mat-header-cell *matHeaderCellDef>Поезд</th>
         <td mat-cell *matCellDef="let route">
-            {{route.train.number}} {{route.fromRouteStation.name}} &ndash; 
-            <br>
-            {{route.toRouteStation.name}}
+            <a routerLink="/routes/{{route.id}}">
+                <span>
+                    {{route.train.number}} {{route.fromRouteStation.name}} &ndash;
+                    {{route.toRouteStation.name}}
+                </span>
+            </a>
         </td>
     </ng-container>
 

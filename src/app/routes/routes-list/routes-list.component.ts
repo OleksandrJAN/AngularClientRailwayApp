@@ -10,9 +10,9 @@ import { Route } from 'src/app/_domain';
 })
 export class RoutesListComponent implements OnInit {
 
-  _routes: Route[];
-
   displayedColumns: string[] = ['train', 'departure', 'arrival', 'duration'];
+
+  _routes: Route[];
 
   @Input() set routes(routes: Route[]) {
     this._routes = routes;
