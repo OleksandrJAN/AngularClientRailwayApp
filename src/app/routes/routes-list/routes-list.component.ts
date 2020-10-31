@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { TimeTransformer } from 'src/app/service';
 
 import { Route } from 'src/app/_domain';
 
@@ -18,24 +19,18 @@ export class RoutesListComponent implements OnInit {
     this._routes = routes;
   }
 
-  
-  constructor() { }
+
+  constructor(private timeTransformer: TimeTransformer) { }
 
   ngOnInit(): void { }
 
 
-  durationToString(travelTime: number): string {
-    let minutes = travelTime % 60;
-    let hours = (travelTime - minutes) / 60;
-    return hours + ' ч ' + minutes + ' мин';
+  getNumberTime(time: number): string {
+    return this.timeTransformer.timeToNumber(time);
   }
 
-  timeToString(time: number): string {
-    let minutes = time % 60;
-    let hours = (time - minutes) / 60;
-    return (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+  getStringTime(time: number): string {
+    return this.timeTransformer.timeToString(time);
   }
-
-
 
 }

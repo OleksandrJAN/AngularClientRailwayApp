@@ -17,7 +17,7 @@
     <ng-container matColumnDef="departure">
         <th mat-header-cell *matHeaderCellDef>Отправление</th>
         <td mat-cell *matCellDef="let route">
-            <div class="table__time">{{timeToString(route.departureTime)}}</div>
+            <div class="table__time">{{getNumberTime(route.departureTime)}}</div>
             {{route.fromUserStation.name}}
         </td>
     </ng-container>
@@ -26,7 +26,7 @@
     <ng-container matColumnDef="arrival">
         <th mat-header-cell *matHeaderCellDef>Прибытие</th>
         <td mat-cell *matCellDef="let route">
-            <div class="table__time">{{timeToString(route.arrivalTime)}}</div>
+            <div class="table__time">{{getNumberTime(route.arrivalTime)}}</div>
             {{route.toUserStation.name}}
         </td>
     </ng-container>
@@ -34,7 +34,7 @@
     <!-- Duration Column -->
     <ng-container matColumnDef="duration">
         <th mat-header-cell *matHeaderCellDef>В пути</th>
-        <td mat-cell *matCellDef="let route"> {{durationToString(route.travelTime)}} </td>
+        <td mat-cell *matCellDef="let route"> {{getStringTime(route.travelTime)}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
