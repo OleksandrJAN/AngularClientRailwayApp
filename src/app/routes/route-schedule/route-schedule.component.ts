@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
-import { RouteService } from 'src/app/service';
-import { Schedule, RouteSchedule } from 'src/app/_domain';
+import { RouteService, TimeTransformer } from 'src/app/service';
+import { Schedule, RouteSchedule, Station } from 'src/app/_domain';
 
 
 @Component({
@@ -11,21 +11,25 @@ import { Schedule, RouteSchedule } from 'src/app/_domain';
   templateUrl: './route-schedule.component.html',
   styleUrls: ['./route-schedule.component.css']
 })
-export class RouteScheduleComponent implements OnInit {
+export class RouteScheduleComponent implements OnInit, AfterContentChecked, AfterViewChecked {
 
   displayedColumns: string[] = ['station', 'arrival', 'departure', 'downtime', 'duration'];
 
   routeSchedule: RouteSchedule = new RouteSchedule();
-  // error because using this.travelTime
   travelTime: number = 0;
 
 
   constructor(
     private route: ActivatedRoute,
-    private routeService: RouteService
+    private routeService: RouteService,
+    private timeTransformer: TimeTransformer
   ) { }
 
   ngOnInit(): void {
+    this.getRouteSchedule();
+  }
+
+  private getRouteSchedule() {
     this.route.paramMap.pipe(
       switchMap(params => {
         const id = +params.get('id');
@@ -34,63 +38,73 @@ export class RouteScheduleComponent implements OnInit {
     ).subscribe(
       (routeSchedule: RouteSchedule) => {
         this.routeSchedule = routeSchedule;
-        console.log(this.routeSchedule);
       }
-    )
+    );
+  }
+
+  ngAfterContentChecked(): void {
+    // because of double rows checks in table, need to set shared variable travelTime default value
+    // first check is ngAfterContentChecked()
+    // second check is ngAfterViewChecked()
+    this.setDefaultTravelTime();
+  }
+
+  ngAfterViewChecked(): void {
+    // because of double rows checks in table, need to set shared variable travelTime default value
+    // first check is ngAfterContentChecked()
+    // second check is ngAfterViewChecked()
+    this.setDefaultTravelTime();
+  }
+
+  private setDefaultTravelTime(): void {
+    this.travelTime = 0;
+  }
+
+  private getStation(index: number): Station {
+    return this.routeSchedule.stationsSchedule[index].station;
+  }
+
+  private getSchedule(index: number): Schedule {
+    return this.routeSchedule.stationsSchedule[index].schedule;
   }
 
 
-  timeToNumber(time: number): string {
-    if (time === null) {
-      // return long dash
-      return '\u2014';
-    }
-
-    let minutes = time % 60;
-    let hours = (time - minutes) / 60;
-
-    let minutesString = minutes < 10 ? '0' + minutes : minutes;
-    let hoursString = hours < 10 ? '0' + hours : hours;
-    return hoursString + ':' + minutesString;
+  getStationName(rowIndex: number): string {
+    let station: Station = this.getStation(rowIndex);
+    return station.name;
   }
 
-  timeToString(time: number): string {
-    if (time === null) {
-      // return long dash
-      return '\u2014';
-    }
+  getArrivalTime(rowIndex: number): string {
+    let schedule: Schedule = this.getSchedule(rowIndex);
+    return this.timeTransformer.timeToNumber(schedule.arrivalTime);
+  }
 
-    let minutes = time % 60;
-    let hours = (time - minutes) / 60;
-
-    let minutesString = minutes ? minutes + ' мин' : '';
-    let hoursString = hours ? hours + ' ч' : '';
-    return hoursString + ' ' + minutesString;
+  getDepartureTime(rowIndex: number): string {
+    let schedule: Schedule = this.getSchedule(rowIndex);
+    return this.timeTransformer.timeToNumber(schedule.departureTime);
   }
 
   getDowntime(rowIndex: number): string {
     // there is no downtime at the departure and station stations
     if (rowIndex === 0 || rowIndex === this.routeSchedule.stationsSchedule.length - 1) {
-      // return long dash
-      return '\u2014';
+      return TimeTransformer.LONG_DASH;
     }
-
     // schedule for row that are needed to calculate downtime
     let stationSchedule: Schedule = this.routeSchedule.stationsSchedule[rowIndex].schedule;
     let stationArrivalTime = stationSchedule.arrivalTime;
     let stationDepartureTime = stationSchedule.departureTime;
 
     let downtime = stationDepartureTime - stationArrivalTime;
-    return this.timeToString(downtime);
+    return this.timeTransformer.timeToString(downtime);
+    // return this.timeToString(downtime);
   }
 
   getTravelTime(rowIndex: number): string {
+    // console.log('row index = ' + rowIndex);
     // there is no travel time at the departure station 
     if (rowIndex === 0) {
-      // return long dash
-      return '\u2014';
+      return TimeTransformer.LONG_DASH;
     }
-
     // schedule for current and previous rows that are needed to calculate travel time
     let currStationSchedule: Schedule = this.routeSchedule.stationsSchedule[rowIndex].schedule;
     let prevStationSchedule: Schedule = this.routeSchedule.stationsSchedule[rowIndex - 1].schedule;
@@ -99,11 +113,14 @@ export class RouteScheduleComponent implements OnInit {
     let prevStationArrivalTime = prevStationSchedule.arrivalTime;
     let prevStationDepartureTime = prevStationSchedule.departureTime;
 
-    // then rowIndex === 1, prevStationArrivalTime === null, so substract prevStationDepartureTime
-    // in all other cases substract prevStationArrivalTime
-    this.travelTime += currStationArrivalTime - (prevStationArrivalTime !== null ? prevStationArrivalTime : prevStationDepartureTime);
-    
-    return this.timeToString(this.travelTime);
+    // Travel time between  two stations is equal to the difference between the arrival time to
+    //  first station (since there is a downtime of arrival and departure times to first station)
+    //  and the arrival time to second station.
+    // Then rowIndex === 1, previous station arrival time === null, so substract prevous station departure time,
+    //  in all other cases substract previous station arrival time
+    this.travelTime += currStationArrivalTime - (prevStationArrivalTime || prevStationDepartureTime);
+
+    return this.timeTransformer.timeToString(this.travelTime);
   }
 
 
