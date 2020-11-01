@@ -1,9 +1,10 @@
 import { AfterContentChecked, AfterViewChecked, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { switchMap } from 'rxjs/operators';
 
 import { RouteService, TimeTransformer } from 'src/app/service';
-import { Schedule, RouteSchedule, Station } from 'src/app/_domain';
+import { RouteSchedule, Schedule, Station } from 'src/app/_domain';
 
 
 @Component({

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { first } from 'rxjs/operators';
 
-import { AuthenticationService } from '../service';
-import { User } from '../_domain';
+import { AuthenticationService } from 'src/app/service';
+import { User } from 'src/app/_domain';
 
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TimeTransformer } from 'src/app/service';
 
+import { TimeTransformer } from 'src/app/service';
 import { Route } from 'src/app/_domain';
 
 

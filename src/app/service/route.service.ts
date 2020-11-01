@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
 
-import { Route, RouteSchedule, RouteSearchParameters } from '../_domain';
+import { Route, RouteSchedule, RouteSearchParameters } from 'src/app/_domain';
 
 
 @Injectable({ providedIn: 'root' })

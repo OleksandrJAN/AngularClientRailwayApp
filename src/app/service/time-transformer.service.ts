@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+
 @Injectable({ providedIn: 'root' })
 export class TimeTransformer {
     public static readonly LONG_DASH: string = '\u2014';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { RouteService, StationService } from 'src/app/service';
-import { Station, RouteSearchParameters, Route } from 'src/app/_domain';
+import { Route, RouteSearchParameters, Station } from 'src/app/_domain';
 
 
 @Component({
