@@ -4,7 +4,7 @@
             <mat-label>Откуда</mat-label>
             <mat-select [(ngModel)]="departureStation">
                 <mat-option *ngFor="let station of stations" [value]="station">
-                    {{station.name}}
+                    {{station}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
@@ -17,7 +17,7 @@
             <mat-label>Куда</mat-label>
             <mat-select [(ngModel)]="arrivalStation">
                 <mat-option *ngFor="let station of stations" [value]="station">
-                    {{station.name}}
+                    {{station}}
                 </mat-option>
             </mat-select>
         </mat-form-field>

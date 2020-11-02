@@ -34,7 +34,7 @@ export class RouteScheduleComponent implements OnInit, AfterContentChecked, Afte
     this.route.paramMap.pipe(
       switchMap(params => {
         const id = +params.get('id');
-        return this.routeService.findRoute(id);
+        return this.routeService.getRouteSchedule(id);
       })
     ).subscribe(
       (routeSchedule: RouteSchedule) => {
