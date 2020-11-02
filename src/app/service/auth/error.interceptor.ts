@@ -4,7 +4,7 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { AuthenticationService } from 'src/app/service';
+import { AuthenticationService } from './authentication.service';
 
 
 @Injectable()

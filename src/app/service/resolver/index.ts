@@ -1,0 +1,1 @@
+export { RouteScheduleResolver } from './route-schedule.resolver';

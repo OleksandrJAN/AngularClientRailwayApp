@@ -1,6 +1,7 @@
-export * from './route-search-parameters';
-export * from './route';
-export * from './schedule';
-export * from './station';
-export * from './train';
-export * from './user';
+export { RouteSchedule } from './route-schedule';
+export { RouteSearchParameters } from './route-search-parameters';
+export { Route } from './route';
+export { Schedule } from './schedule';
+export { Station } from './station';
+export { Train } from './train';
+export { User } from './user';
