@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { TimeTransformer } from 'src/app/service';
-import { Route } from 'src/app/_domain';
+import { Subscription } from 'rxjs';
+
+import { RouteParametersStorage, RouteService, TimeTransformer } from 'src/app/service';
+import { Route, RouteSearchParameters } from 'src/app/_domain';
 
 
 @Component({
@@ -9,20 +11,42 @@ import { Route } from 'src/app/_domain';
   templateUrl: './routes-list.component.html',
   styleUrls: ['./routes-list.component.css']
 })
-export class RoutesListComponent implements OnInit {
+export class RoutesListComponent implements OnInit, OnDestroy {
+
+  private routeParametersChanged$: Subscription;
 
   displayedColumns: string[] = ['train', 'departure', 'arrival', 'duration'];
+  routes: Route[];
 
-  _routes: Route[];
 
-  @Input() set routes(routes: Route[]) {
-    this._routes = routes;
+  constructor(
+    private routeService: RouteService,
+    private routeParametersStorage: RouteParametersStorage,
+    private timeTransformer: TimeTransformer
+  ) { }
+
+  ngOnInit(): void {
+    this.routeParametersChanged$ = this.routeParametersStorage.routeParameters$.subscribe(
+      (routeParameters: RouteSearchParameters) => {
+        if (routeParameters) {
+          this.getRoutes(routeParameters);
+        }
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.routeParametersChanged$.unsubscribe();
   }
 
 
-  constructor(private timeTransformer: TimeTransformer) { }
-
-  ngOnInit(): void { }
+  private getRoutes(routeParameters: RouteSearchParameters) {
+    this.routeService.getRoutes(routeParameters).subscribe(
+      (routes: Route[]) => {
+        this.routes = routes;
+      }
+    );
+  }
 
 
   getNumberTime(time: number): string {

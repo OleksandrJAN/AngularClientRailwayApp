@@ -1,6 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { RouteSearchParameters, Station } from 'src/app/_domain';
+import { Router } from '@angular/router';
+
+import { RouteParametersStorage, StationService } from 'src/app/service';
+import { RouteSearchParameters } from 'src/app/_domain';
 
 
 @Component({
@@ -10,26 +13,45 @@ import { RouteSearchParameters, Station } from 'src/app/_domain';
 })
 export class RouteFinderComponent implements OnInit {
 
-  @Input() stations: Station[];
+  stations: string[];
+  departureStation: string;
+  arrivalStation: string;
 
-  departureStation: Station;
-  arrivalStation: Station;
-  @Output() routeParametersSelected = new EventEmitter<RouteSearchParameters>();
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private stationService: StationService,
+    private routeParametersStorage: RouteParametersStorage
+  ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    // get list of stations names
+    this.getStations();
+  }
+
+  
+  private getStations() {
+    this.stationService.getStationsNames().subscribe(
+      (stations: string[]) => {
+        this.stations = stations;
+      }
+    );
+  }
 
 
   onReverse() {
+    // swap stations
     let temp = this.departureStation;
     this.departureStation = this.arrivalStation;
     this.arrivalStation = temp;
   }
 
   onFind() {
-    let routeParameters = new RouteSearchParameters(this.departureStation, this.arrivalStation)
-    this.routeParametersSelected.emit(routeParameters);
+    // update new route parameters
+    let routeParameters: RouteSearchParameters = { from: this.departureStation, to: this.arrivalStation };
+    this.routeParametersStorage.updateRouteParameters(routeParameters);
+    // navigate to route list component
+    this.router.navigate(['routes']);
   }
 
 }
