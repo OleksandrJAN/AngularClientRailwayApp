@@ -18,8 +18,8 @@
                     <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
                 </mat-form-field>
 
-                <div *ngIf="error">
-                    {{error}}
+                <div class="error__message" *ngIf="error">
+                    <span>{{error}}</span>
                 </div>
             </mat-card-content>
 
