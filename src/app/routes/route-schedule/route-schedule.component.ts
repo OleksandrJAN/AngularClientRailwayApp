@@ -1,9 +1,7 @@
 import { AfterContentChecked, AfterViewChecked, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { switchMap } from 'rxjs/operators';
-
-import { RouteService, TimeTransformer } from 'src/app/service';
+import { TimeTransformer } from 'src/app/service';
 import { RouteSchedule, Schedule, Station } from 'src/app/_domain';
 
 
@@ -22,25 +20,12 @@ export class RouteScheduleComponent implements OnInit, AfterContentChecked, Afte
 
   constructor(
     private route: ActivatedRoute,
-    private routeService: RouteService,
     private timeTransformer: TimeTransformer
   ) { }
 
   ngOnInit(): void {
-    this.getRouteSchedule();
-  }
-
-  private getRouteSchedule() {
-    this.route.paramMap.pipe(
-      switchMap(params => {
-        const id = +params.get('id');
-        return this.routeService.getRouteSchedule(id);
-      })
-    ).subscribe(
-      (routeSchedule: RouteSchedule) => {
-        this.routeSchedule = routeSchedule;
-      }
-    );
+    // get route schedule from RouteScheduleResolver 
+    this.routeSchedule = this.route.snapshot.data['routeSchedule'];
   }
 
   ngAfterContentChecked(): void {
@@ -101,7 +86,6 @@ export class RouteScheduleComponent implements OnInit, AfterContentChecked, Afte
   }
 
   getTravelTime(rowIndex: number): string {
-    // console.log('row index = ' + rowIndex);
     // there is no travel time at the departure station 
     if (rowIndex === 0) {
       return TimeTransformer.LONG_DASH;
