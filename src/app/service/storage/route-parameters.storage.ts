@@ -11,7 +11,6 @@ export class RouteParametersStorage {
     private routeParametersSubject: BehaviorSubject<RouteSearchParameters>;
     public routeParameters$: Observable<RouteSearchParameters>;
 
-    
     constructor() {
         this.routeParametersSubject = new BehaviorSubject<RouteSearchParameters>(null);
         this.routeParameters$ = this.routeParametersSubject.asObservable();

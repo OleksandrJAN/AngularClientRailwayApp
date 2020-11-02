@@ -11,9 +11,7 @@ export class RouteService {
 
   private routeUrl: string = 'http://localhost:8080/routes';
 
-
   constructor(private http: HttpClient) { }
-
 
   public getRoutes(routeParameters: RouteSearchParameters): Observable<Route[]> {
     const params = new HttpParams()
