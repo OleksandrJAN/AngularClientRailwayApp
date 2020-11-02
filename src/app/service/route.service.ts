@@ -11,18 +11,19 @@ export class RouteService {
 
   private routeUrl: string = 'http://localhost:8080/routes';
 
+
   constructor(private http: HttpClient) { }
 
 
-  public findRoutes(routeParameters: RouteSearchParameters): Observable<Route[]> {
+  public getRoutes(routeParameters: RouteSearchParameters): Observable<Route[]> {
     const params = new HttpParams()
-      .set('from', String(routeParameters.departureStation.id))
-      .set('to', String(routeParameters.arrivalStation.id));
+      .set('from', routeParameters.from)
+      .set('to', routeParameters.to);
 
     return this.http.get<Route[]>(this.routeUrl, { params });
   }
 
-  public findRoute(id: number): Observable<RouteSchedule> {
+  public getRouteSchedule(id: number): Observable<RouteSchedule> {
     return this.http.get<RouteSchedule>(this.routeUrl + '/' + id);
   }
 

@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { Station } from 'src/app/_domain';
-
 
 @Injectable({ providedIn: 'root' })
 export class StationService {
@@ -14,7 +12,7 @@ export class StationService {
     constructor(private http: HttpClient) { }
 
 
-    public findStations(): Observable<Station[]> {
-        return this.http.get<Station[]>(this.stationUrl);
+    public getStationsNames(): Observable<string[]> {
+        return this.http.get<string[]>(this.stationUrl);
     }
 }
