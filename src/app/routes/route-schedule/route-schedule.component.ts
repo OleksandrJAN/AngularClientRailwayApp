@@ -14,7 +14,7 @@ export class RouteScheduleComponent implements OnInit, AfterContentChecked, Afte
 
   displayedColumns: string[] = ['station', 'arrival', 'departure', 'downtime', 'duration'];
 
-  routeSchedule: RouteSchedule = new RouteSchedule();
+  routeSchedule: RouteSchedule;
   travelTime: number = 0;
 
 

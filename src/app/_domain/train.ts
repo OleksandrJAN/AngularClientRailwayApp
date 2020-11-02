@@ -1,4 +1,4 @@
-export class Train {
+export interface Train {
     id: number;
     number: string;
     trainType: string;

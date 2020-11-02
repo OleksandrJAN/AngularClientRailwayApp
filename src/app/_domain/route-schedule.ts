@@ -1,6 +1,6 @@
 import { Schedule, Station, Train } from '.';
 
-export class RouteSchedule {
+export interface RouteSchedule {
     train: Train;
     stationsSchedule: { station: Station, schedule: Schedule }[];
 }

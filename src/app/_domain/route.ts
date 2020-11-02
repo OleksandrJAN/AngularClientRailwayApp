@@ -1,6 +1,6 @@
 import { Station, Train } from '.';
 
-export class Route {
+export interface Route {
     id: number;
     train: Train;
     fromRouteStation: Station;
