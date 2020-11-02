@@ -3,16 +3,22 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from './auth';
 import { LoginComponent } from './login';
-import { RoutePageComponent, RouteScheduleComponent } from './routes';
+import { RoutePageComponent, RouteScheduleComponent, RoutesListComponent } from './routes';
 
 
 const routes: Routes = [
-  { path: '', component: RoutePageComponent, canActivate: [AuthGuard] },
-  { path: 'routes', component: RoutePageComponent, canActivate: [AuthGuard] },
-  { path: 'routes/:id', component: RouteScheduleComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'routes', pathMatch: 'full' },
+  {
+    path: 'routes', component: RoutePageComponent, canActivate: [AuthGuard],
+    children: [
+      { path: '', component: RoutesListComponent },
+      { path: ':id', component: RouteScheduleComponent }
+    ]
+  },
 
+  // auth paths
   { path: 'login', component: LoginComponent },
-  
+
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];
