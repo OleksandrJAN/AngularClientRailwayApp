@@ -34,7 +34,7 @@
     <!-- Duration Column -->
     <ng-container matColumnDef="duration">
         <th mat-header-cell *matHeaderCellDef>В пути</th>
-        <td mat-cell *matCellDef="let route"> {{getStringTime(route.travelTime)}} </td>
+        <td mat-cell *matCellDef="let route"> {{getStringTime(route.arrivalTime - route.departureTime)}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

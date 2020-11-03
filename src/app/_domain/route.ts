@@ -9,5 +9,4 @@ export interface Route {
     toUserStation: Station;
     departureTime: number;
     arrivalTime: number;
-    travelTime: number;
 }
