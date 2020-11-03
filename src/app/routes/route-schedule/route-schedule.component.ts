@@ -15,6 +15,8 @@ export class RouteScheduleComponent implements OnInit, AfterContentChecked, Afte
   displayedColumns: string[] = ['station', 'arrival', 'departure', 'downtime', 'duration'];
 
   routeSchedule: RouteSchedule;
+  arrivalStationName: string;
+  departureStationName: string;
   travelTime: number = 0;
 
 
@@ -26,6 +28,8 @@ export class RouteScheduleComponent implements OnInit, AfterContentChecked, Afte
   ngOnInit(): void {
     // get route schedule from RouteScheduleResolver 
     this.routeSchedule = this.route.snapshot.data['routeSchedule'];
+    this.arrivalStationName = this.routeSchedule.stationsSchedule[0].station.name;
+    this.departureStationName = this.routeSchedule.stationsSchedule[this.routeSchedule.stationsSchedule.length - 1].station.name;
   }
 
   ngAfterContentChecked(): void {
