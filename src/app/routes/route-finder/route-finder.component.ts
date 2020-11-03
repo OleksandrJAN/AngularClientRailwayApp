@@ -27,15 +27,25 @@ export class RouteFinderComponent implements OnInit {
   ngOnInit(): void {
     // get list of stations names
     this.getStations();
+    // get latest search parameters for routes
+    this.getLatestRouteParameters();
   }
 
-  
+
   private getStations() {
     this.stationService.getStationsNames().subscribe(
       (stations: string[]) => {
         this.stations = stations;
       }
     );
+  }
+
+  private getLatestRouteParameters() {
+    let latestRouteParameters: RouteSearchParameters = this.routeParametersStorage.routeParametersValue;
+    if (latestRouteParameters) {
+      this.departureStation = latestRouteParameters.from;
+      this.arrivalStation = latestRouteParameters.to;
+    }
   }
 
 
