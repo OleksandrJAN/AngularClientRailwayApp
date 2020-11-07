@@ -9,10 +9,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './material/material.module';
 import { AppRoutingModule } from './app-routing.module';
 
-import { ErrorInterceptor, JwtInterceptor } from './service';
+import { ErrorInterceptor, JwtInterceptor } from './_service';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login';
 import { RoutesListComponent, RouteFinderComponent, RoutePageComponent, RouteScheduleComponent } from './routes';
+import { UserProfileComponent } from './user';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { RoutesListComponent, RouteFinderComponent, RoutePageComponent, RouteSch
     RoutesListComponent,
     RouteFinderComponent,
     RoutePageComponent,
-    RouteScheduleComponent
+    RouteScheduleComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

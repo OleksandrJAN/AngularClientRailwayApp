@@ -3,10 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from 'src/app/login';
 import { RoutePageComponent, RouteScheduleComponent, RoutesListComponent } from 'src/app/routes';
-import { AuthGuard, RouteScheduleResolver } from './service';
+import { UserProfileComponent } from 'src/app/user';
+import { AuthGuard, RouteScheduleResolver } from './_service';
 
 
 const routes: Routes = [
+  // default routes paths
   { path: '', redirectTo: 'routes', pathMatch: 'full' },
   {
     path: 'routes', component: RoutePageComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard],
@@ -15,6 +17,10 @@ const routes: Routes = [
       { path: ':id', component: RouteScheduleComponent, resolve: { routeSchedule: RouteScheduleResolver } }
     ]
   },
+
+  // user paths
+  { path: 'account/profile', component: UserProfileComponent, canActivate: [AuthGuard] },
+
 
   // auth paths
   { path: 'login', component: LoginComponent },

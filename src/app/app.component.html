@@ -2,6 +2,7 @@
     <mat-toolbar-row>
         <a mat-button routerLink="/">Railway</a>
         <span class="example-spacer"></span>
+        <a mat-button routerLink="account/profile">{{currentUser.username}}</a>
         <a mat-button (click)="logout()">Logout</a>
     </mat-toolbar-row>
 </mat-toolbar>
