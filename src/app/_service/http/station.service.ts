@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class StationService {
 
-    private stationUrl: string = 'http://localhost:8080/stations';
+    private readonly stationUrl: string = 'http://localhost:8080/stations';
 
     constructor(private http: HttpClient) { }
 

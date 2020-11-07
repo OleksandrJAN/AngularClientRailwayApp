@@ -4,7 +4,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable } from 'rxjs';
 
 import { RouteSchedule } from 'src/app/_domain';
-import { RouteService } from '../http';
+import { RouteService } from '../http/route.service';
 
 
 @Injectable({ providedIn: 'root' })

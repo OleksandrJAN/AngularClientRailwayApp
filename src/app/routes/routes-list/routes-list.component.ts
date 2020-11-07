@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
-import { RouteParametersStorage, RouteService, TimeTransformer } from 'src/app/service';
+import { RouteParametersStorage, RouteService, TimeTransformer } from 'src/app/_service';
 import { Route, RouteSearchParameters } from 'src/app/_domain';
 
 

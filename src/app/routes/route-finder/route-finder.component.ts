@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { RouteParametersStorage, StationService } from 'src/app/service';
+import { RouteParametersStorage, StationService } from 'src/app/_service';
 import { RouteSearchParameters } from 'src/app/_domain';
 
 

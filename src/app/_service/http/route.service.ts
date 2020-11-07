@@ -9,7 +9,7 @@ import { Route, RouteSchedule, RouteSearchParameters } from 'src/app/_domain';
 @Injectable({ providedIn: 'root' })
 export class RouteService {
 
-  private routeUrl: string = 'http://localhost:8080/routes';
+  private readonly url: string = 'http://localhost:8080/routes';
 
   constructor(private http: HttpClient) { }
 
@@ -18,11 +18,11 @@ export class RouteService {
       .set('from', routeParameters.from)
       .set('to', routeParameters.to);
 
-    return this.http.get<Route[]>(this.routeUrl, { params });
+    return this.http.get<Route[]>(this.url, { params });
   }
 
   public getRouteSchedule(id: number): Observable<RouteSchedule> {
-    return this.http.get<RouteSchedule>(this.routeUrl + '/' + id);
+    return this.http.get<RouteSchedule>(`${this.url}/${id}`);
   }
 
 }
