@@ -1,4 +1,8 @@
+.mat-card {
+    padding: 0;
+}
+
 .route__train {
+    padding: 15px;
     font-size: large;
-    margin-top: 20px;
 }

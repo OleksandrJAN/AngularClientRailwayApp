@@ -1,5 +1,13 @@
+.mat-card {
+    padding: 0;
+}
+
+.mat-card > form {
+    padding: 0px 20px 20px;
+}
+
 .error__message {
-    margin-top: 10px;
+    margin: 10px 0px;
     text-align: center;
     color: #721c24;
     background-color: #f8d7da;
